@@ -19,7 +19,7 @@ export default function Header() {
               </div>
             </div>          
           <h1 className="text-2xl md:text-3xl font-bold text-center text-red-500 w-full md:w-2/4">
-              Unitat de Salud Cardiovascular
+              Unitat de Salut Cardiovascular
             </h1>
           <div className="w-full md:w-1/4 flex justify-center md:justify-end">
               <Image
