@@ -3,6 +3,7 @@ import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { CARDIO_RISK_LEVELS, CardioRiskResultType } from '@/types/riskResult.types'
 import Image from "next/image"
+import { ArrowLeftIcon, FileTextIcon } from '@radix-ui/react-icons'
 
 type CardiovascularRiskResultProps = {
   riskData: CardioRiskResultType;
@@ -86,10 +87,10 @@ export default function CardiovascularRiskResult( { riskData: { risk, data }, on
       <p className="text-gray-700 mb-6">{riskMessages[safeRisk].message}</p>
       <div className="print:hidden grid grid-cols-1 md:grid-cols-2 gap-4">
         <Button onClick={onReset} className="bg-rose-600 hover:bg-rose-700 text-white">
-          Calcular de nuevo
+          <ArrowLeftIcon/> Calcular de nuevo
         </Button>        
         <Button onClick={() => window.print()} className="bg-rose-600 hover:bg-rose-700 text-white">
-          Imprimir
+          <FileTextIcon/> Imprimir
         </Button>
       </div>  
       <div className=" print:flex hidden flex-row justify-between items-center">
