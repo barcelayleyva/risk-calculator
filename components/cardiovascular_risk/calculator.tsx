@@ -1,44 +1,21 @@
 "use client"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Form, FormLabel, FormField, FormItem, FormControl, FormMessage, FormDescription } from "@/components/ui/form";
-import { useForm } from "react-hook-form"
+import { Form, FormLabel, FormField, FormItem, FormControl, FormMessage } from "@/components/ui/form";
 import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { z } from "zod"
+import { cardioRiskCalculator } from '@/lib/utils/useRiskCalculator';
+import { CardioRiskResultType } from '@/types/riskResult.types';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm, SubmitHandler } from "react-hook-form";
+import { FormDataType, FormSchema } from "@/components/cardiovascular_risk/formSchemas";
+ type Props = {
+   onCalculateRisk: (result: CardioRiskResultType) => void
+ }
+export default function CardiovascularRiskCalculator({ onCalculateRisk }: Props) { 
 
-
-const formSchema = z.object({
-  fullName: z.string().min(2, {
-    message: "El nombre debe tener al menos 2 caracteres.",
-  }),
-  age: z.number().min(18, {
-    message: "Debes tener al menos 18 años.",
-  }),
-  cholesterol: z.enum(["0-150", "150-200", "200-250", "250-300", "+300"], {
-    required_error: "Por favor selecciona un rango de colesterol.",
-  }),
-  systolic: z.enum(["0-120", "120-140", "140-160", "160-180"], {
-    required_error: "Por favor selecciona un rango de tensión sistólica.",
-  }),
-  smoking: z.enum(["yes", "no"], {
-    required_error: "Por favor indica si fumas.",
-  }),
-  diabetes: z.enum(["yes", "no"], {
-    required_error: "Por favor indica si tienes diabetes.",
-  }),
-  sex: z.enum(["male", "female"], {
-    required_error: "Por favor selecciona tu sexo.",
-  }),
-})
-
-
-export default function Calculator(){
-  
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<FormDataType>({
+    resolver: zodResolver(FormSchema),
     defaultValues: {
       fullName: "",
       age: 18,
@@ -48,16 +25,30 @@ export default function Calculator(){
       diabetes: undefined,
       sex: undefined,
     },
-  })
+  });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
-  }
+  const onSubmit: SubmitHandler<FormDataType> = (data: FormDataType): void => { 
+    const { risk } = cardioRiskCalculator(data);       
+    const result: CardioRiskResultType = {
+      risk,
+      data: {
+        fullName: data.fullName,
+        diabetes: data.diabetes,
+        smoking: data.smoking,
+        cholesterol: data.cholesterol,
+        systolic: data.systolic,
+      },
+    }
+    onCalculateRisk(result); 
+  };
+
+  
+  
     return (
       <>
         <section className="text-center max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">¿Conoces tu riesgo cardiovascular?</h2>
-              <p className="text-xl text-gray-700 mb-8">
+            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4">¿Conoces tu riesgo cardiovascular?</h2>
+              <p className="text-lg md:text-xl text-gray-700 mb-8">
                 Mediante esta sencilla herramienta podrás descubrirlo de forma rápida y recibir una serie de recomendaciones básicas
                 para que empieces a mejorarlo desde ahora mismo.            
               </p>
@@ -88,7 +79,7 @@ export default function Calculator(){
                   )}
                 />
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <FormField
                     control={form.control}
                     name="age"
@@ -108,21 +99,34 @@ export default function Calculator(){
                     name="cholesterol"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Colesterol total</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Seleccione rango" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value="0-150">0-150</SelectItem>
-                            <SelectItem value="150-200">150-200</SelectItem>
-                            <SelectItem value="200-250">200-250</SelectItem>
-                            <SelectItem value="250-300">250-300</SelectItem>
-                            <SelectItem value="+300">+300</SelectItem>
-                          </SelectContent>
-                        </Select>
+                        <FormLabel>Colesterol total(mg/dL)</FormLabel>
+                        <FormControl>
+                          <Input 
+                            type="number" 
+                            {...field} 
+                            onChange={e => field.onChange(parseInt(e.target.value, 10))}
+                            className="appearance-none"
+                          />
+                        </FormControl>                        
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="hdl"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>HDL(mg/dL)</FormLabel>
+                        <FormControl>
+                          <Input 
+                            type="number" 
+                            {...field} 
+                            onChange={e => field.onChange(parseInt(e.target.value, 10))}
+                            className="appearance-none"
+                          />
+                        </FormControl>                        
                         <FormMessage />
                       </FormItem>
                     )}
@@ -133,25 +137,21 @@ export default function Calculator(){
                     name="systolic"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Tensión sistólica</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Seleccione rango" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value="0-120">0-120</SelectItem>
-                            <SelectItem value="120-140">120-140</SelectItem>
-                            <SelectItem value="140-160">140-160</SelectItem>
-                            <SelectItem value="160-180">160-180</SelectItem>
-                          </SelectContent>
-                        </Select>
+                        <FormLabel>Tensión sistólica(mmHg)</FormLabel>
+                        <FormControl>
+                          <Input 
+                            type="number" 
+                            {...field} 
+                            onChange={e => field.onChange(parseInt(e.target.value, 10))}
+                            className="appearance-none"
+                          />
+                        </FormControl>                        
                         <FormMessage />
                       </FormItem>
                     )}
                   />
                 </div>
+
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <FormField
