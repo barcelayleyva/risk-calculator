@@ -260,7 +260,7 @@ export default function CardiovascularRiskCalculator({ onCalculateRisk }: Props)
                   />
                 </div>
 
-                <Button type="submit" className="w-full bg-rose-500 hover:bg-rose-600 text-white">
+                <Button type="submit" className="w-full bg-rose-600 hover:bg-rose-700 text-white">
                   Calcular Riesgo Cardiovascular
                 </Button>
               </form>
