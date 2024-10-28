@@ -14,8 +14,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Calculadora de risgo cardiovascular",
-  description: "Unidad de salud cardiovascular",
+  title: "Calculadora de riesgo cardiovascular",
+  description: "Calcular el riesgo de cardiovascular con la calculadora de la clínica Unitat de Salut Cardiovascular",
 };
 
 export default function RootLayout({
