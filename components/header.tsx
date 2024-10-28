@@ -2,10 +2,10 @@ import Image from "next/image";
 
 export default function Header() {
     return (              
-      <header className="bg-white shadow-md p-4 md:p-6">
+      <header className="print:hidden bg-white shadow-md p-4 md:p-6">
          <div className="container mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <div className="flex items-center space-x-4 md:w-1/4">
+          <div className="flex justify-between items-center">
+            <div className="flex items-center w-3/4 md:w-1/4 space-x-1 md:space-x-3">
               <Image
                 src="/images/primary-logo.png"
                 alt="Logo de la Clínica"
@@ -18,10 +18,10 @@ export default function Header() {
                 <p className="text-gray-700">Cuidamos de tí</p>
               </div>
             </div>          
-          <h1 className="text-2xl md:text-3xl font-bold text-center text-red-500 w-full md:w-2/4">
+          <h1 className="hidden md:block text-3xl font-bold text-center text-red-500 w-2/4">
               Unitat de Salut Cardiovascular
             </h1>
-          <div className="w-full md:w-1/4 flex justify-center md:justify-end">
+          <div className="md:flex md:justify-end w-1/4">
               <Image
                 src="/images/secondary-logo.png"
                 alt="Secondary Logo"
