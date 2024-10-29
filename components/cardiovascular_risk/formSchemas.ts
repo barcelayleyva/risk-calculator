@@ -14,14 +14,14 @@ export const FormSchema = z.object({
   }),
   hdl: z
   .number({ required_error: "El HDL es un campo obligatorio." })
-  .min(0, { message: "El HDL debe ser al menos 0." }),
+  .min(1, { message: "El HDL debe ser al menos 1." }),
   cholesterol: z
     .number({ required_error: "El colesterol es un campo obligatorio." })
     .min(100, { message: "El colesterol debe ser al menos 100." })
     .max(500, { message: "El colesterol no puede ser mayor a 500." }),    
   systolic: z
     .number({ required_error: "La tensión sistólica es un campo obligatorio." })
-    .min(100, { message: "La tensión sistólica debe ser al menos 100." })
+    .min(90, { message: "La tensión sistólica debe ser al menos 90." })
     .max(250, { message: "La tensión sistólica no puede ser mayor a 250." }),
   smoking: z.enum(DESITION_OPTIONS, {
     required_error: "Por favor indica si fumas.",
