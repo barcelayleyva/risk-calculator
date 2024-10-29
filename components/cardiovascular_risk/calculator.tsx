@@ -19,8 +19,9 @@ export default function CardiovascularRiskCalculator({ onCalculateRisk }: Props)
     defaultValues: {
       fullName: "",
       age: 18,
-      cholesterol: undefined,
-      systolic: undefined,
+      cholesterol: 100,
+      hdl: 1,
+      systolic: 100,
       smoking: undefined,
       diabetes: undefined,
       sex: undefined,
@@ -87,7 +88,7 @@ export default function CardiovascularRiskCalculator({ onCalculateRisk }: Props)
                       <FormItem>
                         <FormLabel>Edad</FormLabel>
                         <FormControl>
-                          <Input type="number" {...field} onChange={e => field.onChange(parseInt(e.target.value, 10))} />
+                          <Input type="number" {...field} onChange={e => field.onChange(parseInt(e.target.value, 10) || 1)} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -104,7 +105,7 @@ export default function CardiovascularRiskCalculator({ onCalculateRisk }: Props)
                           <Input 
                             type="number" 
                             {...field} 
-                            onChange={e => field.onChange(parseInt(e.target.value, 10))}
+                            onChange={e => field.onChange(parseInt(e.target?.value, 10) || 1)}
                             className="appearance-none"
                           />
                         </FormControl>                        
@@ -123,7 +124,7 @@ export default function CardiovascularRiskCalculator({ onCalculateRisk }: Props)
                           <Input 
                             type="number" 
                             {...field} 
-                            onChange={e => field.onChange(parseInt(e.target.value, 10))}
+                            onChange={e => field.onChange(parseInt(e.target.value, 10) || 1)}
                             className="appearance-none"
                           />
                         </FormControl>                        
@@ -142,7 +143,7 @@ export default function CardiovascularRiskCalculator({ onCalculateRisk }: Props)
                           <Input 
                             type="number" 
                             {...field} 
-                            onChange={e => field.onChange(parseInt(e.target.value, 10))}
+                            onChange={e => field.onChange(parseInt(e.target.value, 10) || 1)}
                             className="appearance-none"
                           />
                         </FormControl>                        
