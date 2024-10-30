@@ -7,7 +7,7 @@ export default function manifest(): MetadataRoute.Manifest {
     description: 'Aplicación web progresiva de la clínica Unitat de Salut Cardiovascular para calcular el riesgo cardiovascular de forma sencilla y efectiva.',
     start_url: '/',
     display: 'standalone',
-    background_color: '#f4e7e7',
+    background_color: '#ffffff',
     theme_color: '#254fc2',
     icons: [
       {
