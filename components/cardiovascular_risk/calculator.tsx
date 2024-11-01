@@ -17,14 +17,7 @@ export default function CardiovascularRiskCalculator({ onCalculateRisk }: Props)
   const form = useForm<FormDataType>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      fullName: "",
-      // age: 0,
-      // cholesterol: 0,
-      // hdl: 0,
-      // systolic: 0,
-      // smoking: undefined,
-      // diabetes: undefined,
-      // sex: undefined,
+      fullName: ""
     },
   });
 
