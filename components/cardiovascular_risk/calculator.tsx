@@ -18,13 +18,13 @@ export default function CardiovascularRiskCalculator({ onCalculateRisk }: Props)
     resolver: zodResolver(FormSchema),
     defaultValues: {
       fullName: "",
-      age: 18,
-      cholesterol: 100,
-      hdl: 1,
-      systolic: 100,
-      smoking: undefined,
-      diabetes: undefined,
-      sex: undefined,
+      // age: 0,
+      // cholesterol: 0,
+      // hdl: 0,
+      // systolic: 0,
+      // smoking: undefined,
+      // diabetes: undefined,
+      // sex: undefined,
     },
   });
 
@@ -88,7 +88,7 @@ export default function CardiovascularRiskCalculator({ onCalculateRisk }: Props)
                       <FormItem>
                         <FormLabel>Edad</FormLabel>
                         <FormControl>
-                          <Input type="number" {...field} onChange={e => field.onChange(parseInt(e.target.value, 10) || 1)} />
+                          <Input type="number" {...field} onChange={e => field.onChange(parseInt(e.target.value, 10) || '')} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -105,7 +105,7 @@ export default function CardiovascularRiskCalculator({ onCalculateRisk }: Props)
                           <Input 
                             type="number" 
                             {...field} 
-                            onChange={e => field.onChange(parseInt(e.target?.value, 10) || 1)}
+                            onChange={e => field.onChange(parseInt(e.target?.value, 10) || '')}
                             className="appearance-none"
                           />
                         </FormControl>                        
@@ -124,7 +124,7 @@ export default function CardiovascularRiskCalculator({ onCalculateRisk }: Props)
                           <Input 
                             type="number" 
                             {...field} 
-                            onChange={e => field.onChange(parseInt(e.target.value, 10) || 1)}
+                            onChange={e => field.onChange(parseInt(e.target.value, 10) || '')}
                             className="appearance-none"
                           />
                         </FormControl>                        
@@ -143,7 +143,7 @@ export default function CardiovascularRiskCalculator({ onCalculateRisk }: Props)
                           <Input 
                             type="number" 
                             {...field} 
-                            onChange={e => field.onChange(parseInt(e.target.value, 10) || 1)}
+                            onChange={e => field.onChange(parseInt(e.target.value, 10) || '')}
                             className="appearance-none"
                           />
                         </FormControl>                        
